@@ -7,8 +7,6 @@ class StudentController extends Controller
     public function index()
 {
     // Allow student to access the protected profile page
-    $_SESSION['student_access'] = true;
-
     $data['student'] = [
         'student_id' => 'MCC2022-1178',
         'name' => 'Catherine Fallaria',
