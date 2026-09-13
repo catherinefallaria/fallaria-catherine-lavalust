@@ -59,3 +59,17 @@ $router->get('/users/edit/{id}', 'UsersController::edit');
 $router->post('/users/update/{id}', 'UsersController::update');
 
 $router->get('/users/delete/{id}', 'UsersController::delete');
+
+$router->get('/login', 'AuthController::login');
+$router->post('/login/authenticate', 'AuthController::authenticate');
+$router->get('/logout', 'AuthController::logout');
+
+// Product CRUD Routes
+$router->get('/products', 'ProductController::index')->middleware('auth');
+$router->get('/products/create', 'ProductController::create')->middleware('auth');
+$router->post('/products/store', 'ProductController::store')->middleware('auth');
+
+$router->get('/products/edit/{id}', 'ProductController::edit')->middleware('auth');
+$router->post('/products/update/{id}', 'ProductController::update')->middleware('auth');
+
+$router->get('/products/delete/{id}', 'ProductController::delete')->middleware('auth');
