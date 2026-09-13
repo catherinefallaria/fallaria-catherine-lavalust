@@ -79,7 +79,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= 'https://fallaria-catherine-lavalust.onrender.com/';
+$config['base_url'] 				= getenv('BASE_URL') ?: 'http://localhost/LavaLust/';
 
 /*
 |--------------------------------------------------------------------------

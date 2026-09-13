@@ -6,6 +6,31 @@
     <title>Users List</title>
 
     <style>
+        .edit-btn,
+.delete-btn {
+    display: inline-block;
+    padding: 7px 12px;
+    margin: 2px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.edit-btn {
+    background: #7b2cbf;
+    color: white;
+}
+
+.delete-btn {
+    background: #d63384;
+    color: white;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    opacity: 0.85;
+}
         * {
             box-sizing: border-box;
             margin: 0;
@@ -99,6 +124,22 @@
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 12px;
+
+         .add-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 18px;
+    background: linear-gradient(90deg, #7b2cbf, #d63384);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+    opacity: 0.85;
+}
         }
     </style>
 </head>
@@ -118,25 +159,44 @@
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Course</th>
                     <th>Email</th>
                     <th>Username</th>
+                    <th>Action</th>
                 </tr>
 
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td class="id"><?= $user['id'] ?></td>
-                    <td><?= $user['firstname'] ?></td>
-                    <td><?= $user['lastname'] ?></td>
-                    <td><?= $user['email'] ?></td>
-                    <td>
-                        <span class="badge">
-                            <?= $user['username'] ?>
-                        </span>
-                    </td>
+<td><?= $user['firstname'] ?></td>
+<td><?= $user['lastname'] ?></td>
+<td><?= $user['course'] ?? '' ?></td>
+<td><?= $user['email'] ?></td>
+<td>
+    <span class="badge">
+        <?= $user['username'] ?>
+    </span>
+</td>
+
+<td>
+    <a class="edit-btn" href="<?= site_url('users/edit/' . $user['id']) ?>">
+    Edit
+</a>
+
+<a class="delete-btn"
+   href="<?= site_url('users/delete/' . $user['id']) ?>"
+   onclick="return confirm('Are you sure you want to delete this user?')">
+    Delete
+</a>
+</td>
                 </tr>
                 <?php endforeach; ?>
 
             </table>
+            <a href="<?= site_url('users/create') ?>"
+   style="display:inline-block; margin-top:15px; padding:10px 18px; background:linear-gradient(90deg, #7b2cbf, #d63384); color:white; text-decoration:none; border-radius:8px; font-weight:bold;">
+    + Add User
+</a>
         </div>
 
         <div class="footer">
