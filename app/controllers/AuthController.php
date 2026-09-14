@@ -19,12 +19,13 @@ class AuthController extends Controller
     public function authenticate()
     {
         $username = $this->io->post('username');
+        $password = $this->io->post('password');
 
         $users = $this->UsersModel->all();
 
         foreach ($users as $user) {
 
-            if ($user['username'] === $username) {
+            if ($user['username'] === $username && $user['password'] === $password) {
 
                 $this->session->set_userdata('logged_in', true);
                 $this->session->set_userdata('username', $username);
@@ -35,7 +36,7 @@ class AuthController extends Controller
         }
 
         $data = [
-            'error' => 'Invalid username.'
+            'error' => 'Invalid username or password.'
         ];
 
         $this->call->view('auth/login', $data);

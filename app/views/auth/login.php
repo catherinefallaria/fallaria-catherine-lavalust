@@ -4,68 +4,84 @@
     <title>Login</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f3e5f5, #fce4ec);
+            background: linear-gradient(135deg, #6a1b9a, #ec407a);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         .login-box {
-            background: white;
-            width: 350px;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            width: 380px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
             text-align: center;
-            color: #7b1fa2;
-            margin-bottom: 25px;
+            color: #6a1b9a;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 30px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #555;
             font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
+            padding: 13px;
+            margin-bottom: 20px;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #ec407a;
+            box-shadow: 0 0 5px rgba(236, 64, 122, 0.3);
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: #8e44ad;
+            padding: 13px;
+            background: linear-gradient(90deg, #6a1b9a, #ec407a);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 9px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         button:hover {
-            background: #732d91;
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         .error {
-            background: #f8d7da;
-            color: #842029;
-            padding: 10px;
+            background: #fce4ec;
+            color: #c2185b;
+            padding: 11px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -85,7 +101,20 @@
     <form action="<?= site_url('login/authenticate') ?>" method="POST">
 
         <label>Username</label>
-        <input type="text" name="username" required>
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter username"
+            required
+        >
+
+        <label>Password</label>
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            required
+        >
 
         <button type="submit">Login</button>
 

@@ -4,76 +4,108 @@
     <title>Products</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f0ff;
             margin: 0;
-            padding: 30px;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a1b9a, #ec407a);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: auto;
-            background: white;
+            background: #ffffff;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
         }
 
         h1 {
+            margin: 0;
             color: #6a1b9a;
-            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
         }
 
         .add-btn {
-            display: inline-block;
-            background: #8e44ad;
-            color: white;
-            padding: 10px 18px;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            background: #ec407a;
         }
 
         .add-btn:hover {
+            background: #d81b60;
+        }
+
+        .logout-btn {
             background: #6a1b9a;
+        }
+
+        .logout-btn:hover {
+            background: #4a148c;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
         }
 
         th {
-            background: #8e44ad;
+            background: #6a1b9a;
             color: white;
-            padding: 12px;
+            padding: 14px;
+            text-align: left;
         }
 
         td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
+            padding: 13px;
+            border-bottom: 1px solid #eee;
         }
 
         tr:hover {
             background: #fce4ec;
         }
 
-        .edit {
-            background: #e91e63;
-            color: white;
-            padding: 7px 12px;
+        .edit-btn {
+            color: #6a1b9a;
             text-decoration: none;
-            border-radius: 6px;
+            font-weight: bold;
+            margin-right: 10px;
         }
 
-        .delete {
-            background: #c62828;
-            color: white;
-            padding: 7px 12px;
+        .delete-btn {
+            color: #ec407a;
             text-decoration: none;
-            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .edit-btn:hover,
+        .delete-btn:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -82,65 +114,66 @@
 
 <div class="container">
 
-    <h1>Product Management</h1>
+    <div class="header">
 
-    <a href="<?= site_url('products/create'); ?>" class="add-btn">
-        + Add Product
-    </a>
+        <h1>Products</h1>
+
+        <div class="buttons">
+            <a href="<?= site_url('products/create') ?>" class="btn add-btn">
+                Add Product
+            </a>
+
+            <a href="<?= site_url('logout') ?>" class="btn logout-btn">
+                Logout
+            </a>
+        </div>
+
+    </div>
 
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Created At</th>
+            <th>Action</th>
+        </tr>
 
-        <tbody>
+        <?php foreach ($products as $product): ?>
+        <tr>
+            <td><?= $product['id'] ?></td>
 
-            <?php if (!empty($products)): ?>
+            <td><?= $product['product_name'] ?></td>
 
-                <?php foreach ($products as $product): ?>
+            <td><?= $product['description'] ?></td>
 
-                    <tr>
-                        <td><?= $product['id']; ?></td>
+            <td><?= $product['price'] ?></td>
 
-                        <td><?= $product['product_name']; ?></td>
+            <td><?= $product['quantity'] ?></td>
 
-                        <td><?= $product['description']; ?></td>
+            <td><?= $product['created_at'] ?></td>
 
-                        <td>₱<?= number_format($product['price'], 2); ?></td>
+            <td>
+                <a
+                    href="<?= site_url('products/edit/' . $product['id']) ?>"
+                    class="edit-btn"
+                >
+                    Edit
+                </a>
 
-                        <td><?= $product['quantity']; ?></td>
+                <a
+                    href="<?= site_url('products/delete/' . $product['id']) ?>"
+                    class="delete-btn"
+                    onclick="return confirm('Are you sure you want to delete this product?');"
+                >
+                    Delete
+                </a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
 
-                        <td>
-                            <a href="<?= site_url('products/edit/' . $product['id']); ?>" class="edit">
-                                Edit
-                            </a>
-
-                            <a href="<?= site_url('products/delete/' . $product['id']); ?>"
-                               class="delete"
-                               onclick="return confirm('Are you sure you want to delete this product?');">
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-            <?php else: ?>
-
-                <tr>
-                    <td colspan="6">No products found.</td>
-                </tr>
-
-            <?php endif; ?>
-
-        </tbody>
     </table>
 
 </div>
