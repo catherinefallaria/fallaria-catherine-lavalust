@@ -153,7 +153,7 @@
 
             <td><?= $product['quantity'] ?></td>
 
-            <td><?= $product['created_at'] ?></td>
+            <td><?= isset($product['created_at']) ? $product['created_at'] : '' ?></td>
 
             <td>
                 <a
