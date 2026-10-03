@@ -5,20 +5,24 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 class AuthApiController extends Controller
 {
     public function __construct()
-    {
-        parent::__construct();
-        $this->call->model('UsersModel');
-        $this->call->library('session');
-
-        header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    }
-
-    public function options()
 {
-    header('Access-Control-Allow-Origin: http://localhost:5173');
+    parent::__construct();
+    $this->call->model('UsersModel');
+    $this->call->library('session');
+
+    $frontendUrl = getenv('FRONTEND_URL') ?: 'http://localhost:5173';
+
+    header('Access-Control-Allow-Origin: ' . $frontendUrl);
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+}
+
+public function options()
+{
+    $frontendUrl = getenv('FRONTEND_URL') ?: 'http://localhost:5173';
+
+    header('Access-Control-Allow-Origin: ' . $frontendUrl);
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Headers: Content-Type');
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -26,7 +30,6 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
     http_response_code(204);
     exit;
 }
-
 
     // POST /api/login
     public function login()

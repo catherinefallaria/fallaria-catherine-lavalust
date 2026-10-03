@@ -5,19 +5,23 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 class ProductApiController extends Controller
 {
     public function __construct()
-    {
-        parent::__construct();
-        $this->call->model('ProductModel');
-
-        header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    }
-
-    public function options()
 {
-    header('Access-Control-Allow-Origin: http://localhost:5173');
+    parent::__construct();
+    $this->call->model('ProductModel');
+
+    $frontendUrl = getenv('FRONTEND_URL') ?: 'http://localhost:5173';
+
+    header('Access-Control-Allow-Origin: ' . $frontendUrl);
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+}
+
+public function options()
+{
+    $frontendUrl = getenv('FRONTEND_URL') ?: 'http://localhost:5173';
+
+    header('Access-Control-Allow-Origin: ' . $frontendUrl);
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Headers: Content-Type');
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
