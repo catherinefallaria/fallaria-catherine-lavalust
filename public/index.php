@@ -1,5 +1,19 @@
 <?php
 
+// CORS
+$frontendUrl = getenv('FRONTEND_URL') ?: 'http://localhost:5173';
+
+header('Access-Control-Allow-Origin: ' . $frontendUrl);
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+
+// Handle CORS preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 define('PREVENT_DIRECT_ACCESS', TRUE);
 /**
  * ------------------------------------------------------------------
