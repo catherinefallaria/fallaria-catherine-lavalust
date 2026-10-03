@@ -441,6 +441,8 @@ class Session {
         return false;
     }
 
+    $_SESSION['last_regenerate'] = time();
+
     return @session_regenerate_id((bool)$destroy);
 }
 	/**
