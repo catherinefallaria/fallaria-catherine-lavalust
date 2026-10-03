@@ -231,7 +231,7 @@ $config['subclass_prefix']          = 'MY_';
 |
 |--------------------------------------------------------------------------
 */
-$config['sess_driver']             = 'file';
+$config['sess_driver']             = 'database';
 $config['sess_table']              = 'sessions';
 $config['sess_cookie_name']        = 'LLSession';
 $config['sess_expiration']         = 7200;
