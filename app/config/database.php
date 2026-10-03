@@ -1,4 +1,5 @@
 <?php
+
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 $database = array();
@@ -12,5 +13,9 @@ $database['main'] = array(
     'database' => getenv('DB_NAME') ?: '',
     'charset'  => 'utf8mb4',
     'dbprefix' => '',
+    'options' => [
+        PDO::MYSQL_ATTR_SSL_CA => __DIR__ . '/../../certs/ca.pem',
+    ],
 );
+
 ?>

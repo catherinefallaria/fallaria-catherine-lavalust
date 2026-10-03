@@ -73,3 +73,32 @@ $router->get('/products/edit/{id}', 'ProductController::edit')->middleware('auth
 $router->post('/products/update/{id}', 'ProductController::update')->middleware('auth');
 
 $router->get('/products/delete/{id}', 'ProductController::delete')->middleware('auth');
+
+
+// Authentication API Routes
+$router->options('/api/login', 'AuthApiController::options');
+$router->post('/api/login', 'AuthApiController::login');
+$router->post('/api/logout', 'AuthApiController::logout')->middleware('auth');
+
+// Product API Routes
+
+$router->options('/api/products', 'ProductApiController::options');
+$router->options('/api/products/{id}', 'ProductApiController::options');
+
+$router->get('/api/products', 'ProductApiController::index')->middleware('auth');
+$router->post('/api/products', 'ProductApiController::store')->middleware('auth');
+$router->put('/api/products/{id}', 'ProductApiController::update')->middleware('auth');
+$router->delete('/api/products/{id}', 'ProductApiController::delete')->middleware('auth');
+// Migration Routes
+
+$router->get('create-migration/{migration_class}', 'MigrationController::create_migration');
+
+$router->get('migrate', 'MigrationController::migrate');
+
+$router->get('rollback', 'MigrationController::rollback');
+
+$router->get('rollback-all', 'MigrationController::rollback_all');
+
+$router->get('refresh', 'MigrationController::refresh');
+
+$router->get('status', 'MigrationController::status');
