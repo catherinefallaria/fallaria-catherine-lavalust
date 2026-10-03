@@ -202,7 +202,7 @@ class Session {
 
         // Hardened PHP session settings
         ini_set('session.use_trans_sid', 0);
-        ini_set('session.use_strict_mode', 1);
+        ini_set('session.use_strict_mode', 0);
         ini_set('session.use_cookies', 1);
         ini_set('session.use_only_cookies', 1);
         ini_set('session.cookie_httponly', 1);
@@ -436,16 +436,13 @@ class Session {
 	 * @param bool $destroy
 	 */
 	public function sess_regenerate(bool $destroy = false)
-    {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            return false;
-        }
-
-        $_SESSION['last_regenerate'] = time();
-        
-        return @session_regenerate_id((bool)$destroy);
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        return false;
     }
 
+    return @session_regenerate_id((bool)$destroy);
+}
 	/**
 	 * Mark a session variable as flashdata
 	 *
