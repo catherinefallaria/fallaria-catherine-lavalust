@@ -13,18 +13,14 @@ class AuthMiddleware
         header('Access-Control-Allow-Headers: Content-Type');
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
-        // Load the session library
+        // Load LavaLust Session library.
+        // The Session constructor already starts the PHP session.
         $session = load_class('Session', 'libraries');
 
-        // Make sure the PHP session is active
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
-
-        // Check if the user is logged in
+        // Check if the user is logged in.
         if (
-            !isset($_SESSION['logged_in']) ||
-            $_SESSION['logged_in'] !== true
+            !$session->has_userdata('logged_in') ||
+            $session->userdata('logged_in') !== true
         ) {
             header('Content-Type: application/json');
             http_response_code(401);
@@ -37,7 +33,7 @@ class AuthMiddleware
             exit;
         }
 
-        // User is authenticated
+        // User is authenticated.
         return $next();
     }
 }
